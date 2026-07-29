@@ -45,14 +45,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/salemall/react-native-notification-listener-android.git"
+    "url": "git+https://github.com/manhdev0901/react-native-notification-listener-android.git"
   },
-  "author": "manhdv <manhdv@salemall.vn> (https://github.com/salemall)",
+  "author": "manhdv <manhdv.dev@gmail.com> (https://github.com/manhdev0901)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/salemall/react-native-notification-listener-android/issues"
+    "url": "https://github.com/manhdev0901/react-native-notification-listener-android/issues"
   },
-  "homepage": "https://github.com/salemall/react-native-notification-listener-android#readme",
+  "homepage": "https://github.com/manhdev0901/react-native-notification-listener-android#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
