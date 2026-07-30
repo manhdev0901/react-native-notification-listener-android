@@ -74,12 +74,28 @@ class NotificationListenerAndroidService : NotificationListenerService() {
     const val CONNECTION_LOG_PREFS = "notification_listener_android_logs"
     const val CONNECTION_LOG_KEY = "logs"
     private const val MAX_CONNECTION_LOGS = 50
+    private const val MAX_CONNECTION_LOG_AGE_MS = 7 * 24 * 60 * 60 * 1000L
+
+    // Drops entries older than MAX_CONNECTION_LOG_AGE_MS so the log is
+    // self-pruning even if the listener stays connected for weeks without a
+    // fresh connect/disconnect event to trigger cleanup.
+    fun pruneExpiredLogs(logs: JSONArray): JSONArray {
+      val cutoff = System.currentTimeMillis() - MAX_CONNECTION_LOG_AGE_MS
+      val pruned = JSONArray()
+      for (i in 0 until logs.length()) {
+        val entry = logs.getJSONObject(i)
+        if (entry.getLong("time") >= cutoff) {
+          pruned.put(entry)
+        }
+      }
+      return pruned
+    }
 
     fun appendConnectionLog(context: Context, type: String) {
       try {
         val prefs: SharedPreferences =
           context.getSharedPreferences(CONNECTION_LOG_PREFS, Context.MODE_PRIVATE)
-        val logs = JSONArray(prefs.getString(CONNECTION_LOG_KEY, "[]"))
+        val logs = pruneExpiredLogs(JSONArray(prefs.getString(CONNECTION_LOG_KEY, "[]")))
 
         val entry = JSONObject()
         entry.put("type", type)

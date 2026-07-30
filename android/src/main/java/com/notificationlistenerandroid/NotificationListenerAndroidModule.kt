@@ -51,9 +51,12 @@ class NotificationListenerAndroidModule(reactContext: ReactApplicationContext) :
         NotificationListenerAndroidService.CONNECTION_LOG_PREFS,
         Context.MODE_PRIVATE
       )
-      val logs = JSONArray(
-        prefs.getString(NotificationListenerAndroidService.CONNECTION_LOG_KEY, "[]")
+      val logs = NotificationListenerAndroidService.pruneExpiredLogs(
+        JSONArray(prefs.getString(NotificationListenerAndroidService.CONNECTION_LOG_KEY, "[]"))
       )
+      prefs.edit()
+        .putString(NotificationListenerAndroidService.CONNECTION_LOG_KEY, logs.toString())
+        .apply()
 
       val result: WritableArray = Arguments.createArray()
       for (i in 0 until logs.length()) {

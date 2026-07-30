@@ -7,8 +7,8 @@ import com.facebook.react.jstasks.HeadlessJsTaskConfig
 
 /** Delivers one posted notification's payload to the JS headless task. */
 class NotificationListenerAndroidHeadlessTaskService : HeadlessJsTaskService() {
-  override fun getTaskConfig(intent: Intent): HeadlessJsTaskConfig? {
-    val extras = intent.extras ?: return null
+  override fun getTaskConfig(intent: Intent?): HeadlessJsTaskConfig? {
+    val extras = intent?.extras ?: return null
     return HeadlessJsTaskConfig(
       TASK_NAME,
       Arguments.fromBundle(extras),
