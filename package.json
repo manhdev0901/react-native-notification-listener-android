@@ -2,6 +2,7 @@
   "name": "react-native-notification-listener-android",
   "version": "0.1.0",
   "description": "Modern Android NotificationListenerService bridge for React Native (Old + New Architecture)",
+  "private": true,
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
